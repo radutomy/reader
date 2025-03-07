@@ -1,15 +1,12 @@
 mod ui {
-    #[path = "main-view.rs"]
-    pub mod main_view;
-
-    #[path = "sidebar.rs"]
+    pub mod root;
     pub mod sidebar;
-    
+
     #[path = "open-capture.rs"]
     pub mod open_capture;
 }
 
-use ui::main_view::App;
+use ui::root::App;
 
 fn main() {
     dioxus::launch(App);
