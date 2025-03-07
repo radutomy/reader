@@ -25,22 +25,19 @@ pub fn App() -> Element {
 				active_page,
 				on_page_change: move |page| active_page.set(page),
 			}
-			div { id: "main-content",
-				div { id: "top-bar" }
-				div { id: "content-area",
-					{
-					    match active_page() {
-					        View::OpenLoop => rsx! {
-						OpenLoopCapture {}
-					},
-					        View::Settings => rsx! {
-						SystemSettings {}
-					},
-					        View::Logs => rsx! {
-						div { "Logs - Coming Soon" }
-					},
-					    }
-					}
+			div { id: "content-area",
+				{
+				    match active_page() {
+				        View::OpenLoop => rsx! {
+					OpenLoopCapture {}
+				},
+				        View::Settings => rsx! {
+					SystemSettings {}
+				},
+				        View::Logs => rsx! {
+					div { "Logs - Coming Soon" }
+				},
+				    }
 				}
 			}
 		}
