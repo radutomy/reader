@@ -4,6 +4,9 @@ mod ui {
 
     #[path = "sidebar.rs"]
     pub mod sidebar;
+    
+    #[path = "open-capture.rs"]
+    pub mod open_capture;
 }
 
 use ui::main_view::App;
