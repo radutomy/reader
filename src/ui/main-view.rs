@@ -2,53 +2,92 @@ use dioxus::prelude::*;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
-const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
 #[component]
 pub fn App() -> Element {
     rsx! {
 		document::Link { rel: "icon", href: FAVICON }
 		document::Link { rel: "stylesheet", href: MAIN_CSS }
-		document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-		Hero {}
-		Echo {}
-	}
-}
-
-#[component]
-pub fn Hero() -> Element {
-    rsx! {
-		div { id: "hero",
-			div { id: "links" }
+		div { id: "app-container",
+			div { id: "sidebar",
+				h1 { id: "app-title", "Reader Control" }
+				div { id: "nav-links",
+					button { class: "nav-button active",
+						span { class: "nav-icon", "☰" }
+						span { class: "nav-text", "Open Loop Capture" }
+					}
+					div { class: "spacer" }
+					button { class: "nav-button",
+						span { class: "nav-icon", "⛭" }
+						span { class: "nav-text", "System Settings" }
+					}
+					button { class: "nav-button",
+						span { class: "nav-icon", ">_" }
+						span { class: "nav-text", "Logs" }
+					}
+				}
+			}
+			div { id: "main-content",
+				div { id: "top-bar" }
+				div { id: "content-area", OpenLoopCapture {} }
+			}
 		}
 	}
 }
 
-/// Echo component that demonstrates fullstack server functions.
 #[component]
-fn Echo() -> Element {
-    let mut response = use_signal(|| String::new());
+fn OpenLoopCapture() -> Element {
+    let mut frame_rate = use_signal(|| 30);
+    let mut glass_start = use_signal(|| 0);
+
+    let handle_capture = move |_| {
+        println!(
+            "Starting capture with frame rate: {} and glass start: {}",
+            frame_rate(),
+            glass_start()
+        );
+        // Add server call here
+    };
+
     rsx! {
-		div { id: "echo",
-			h4 { "ServerFn Echo" }
-			input {
-				placeholder: "Type here to echo...",
-				oninput: move |event| async move {
-				    let data = echo_server(event.value()).await.unwrap();
-				    response.set(data);
-				},
+		div { id: "openloop-capture",
+			h2 { "Open Loop Capture" }
+			div { class: "settings-grid",
+				// Camera Settings Card
+				div { class: "settings-card",
+					h3 { "Camera Settings" }
+					div { class: "setting-item",
+						label { "Frame Rate (Hz)" }
+						input {
+							r#type: "number",
+							value: "{frame_rate}",
+							oninput: move |evt| frame_rate.set(evt.value().parse().unwrap_or(30)),
+						}
+					}
+				}
+				// Capture Configuration Card
+				div { class: "settings-card",
+					h3 { "Capture Configuration" }
+					div { class: "setting-item",
+						label { "Glass Start (nm)" }
+						input {
+							r#type: "number",
+							value: "{glass_start}",
+							oninput: move |evt| glass_start.set(evt.value().parse().unwrap_or(0)),
+						}
+					}
+				}
 			}
-			if !response().is_empty() {
-				p {
-					"Server echoed: "
-					i { "{response}" }
+			div { class: "action-button-container",
+				button { class: "action-button", onclick: handle_capture,
+					span { class: "button-icon", "▶" }
+					"Start Open Loop Capture"
 				}
 			}
 		}
 	}
 }
 
-/// Echo the user input on the server.
 #[server(EchoServer)]
 async fn echo_server(input: String) -> Result<String, ServerFnError> {
     Ok(input)
