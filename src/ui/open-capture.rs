@@ -34,11 +34,11 @@ pub fn OpenLoopCapture() -> Element {
 
     rsx! {
         div { id: "standard-view",
-            h2 { "Open Loop Capture" }
+            h1 { "Open Loop Capture" }
             div { class: "settings-grid",
                 // Camera Settings Card - Full Width
                 div { class: "settings-card",
-                    h3 { "Camera Settings" }
+                    h2 { "Camera Settings" }
                     div { class: "setting-item",
                         label { "Frame Rate (Hz)" }
                         input {
@@ -58,7 +58,7 @@ pub fn OpenLoopCapture() -> Element {
                 }
                 // Capture Configuration Card - 2 Columns
                 div { class: "settings-card",
-                    h3 { "Capture Configuration" }
+                    h2 { "Capture Configuration" }
                     div { class: "settings-grid-2col",
                         div { class: "setting-item",
                             label { "Glass Start (nm)" }

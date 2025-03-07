@@ -16,10 +16,10 @@ pub fn SystemSettings() -> Element {
 
     rsx! {
         div { id: "standard-view",
-            h2 { "System Settings" }
+            h1 { "System Settings" }
             div { class: "settings-grid",
                 div { class: "settings-card",
-                    h3 { "Network Configuration" }
+                    h2 { "Network Configuration" }
                     div { class: "setting-item",
                         label { "IP Address" }
                         input {
