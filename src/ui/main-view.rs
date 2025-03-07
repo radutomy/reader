@@ -34,7 +34,7 @@ fn OpenLoopCapture() -> Element {
     };
 
     rsx! {
-		div { id: "openloop-capture",
+		div { id: "reader-view",
 			h2 { "Open Loop Capture" }
 			div { class: "settings-grid",
 				// Camera Settings Card

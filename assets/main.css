@@ -115,13 +115,13 @@ body {
 }
 
 /* OpenLoop Capture Styling */
-#openloop-capture {
+#reader-view {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-#openloop-capture h2 {
+#reader-view h2 {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
