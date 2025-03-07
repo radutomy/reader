@@ -1,3 +1,4 @@
+use crate::ui::sidebar::Sidebar;
 use dioxus::prelude::*;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
@@ -9,24 +10,7 @@ pub fn App() -> Element {
 		document::Link { rel: "icon", href: FAVICON }
 		document::Link { rel: "stylesheet", href: MAIN_CSS }
 		div { id: "app-container",
-			div { id: "sidebar",
-				h1 { id: "app-title", "Reader Control" }
-				div { id: "nav-links",
-					button { class: "nav-button active",
-						span { class: "nav-icon", "☰" }
-						span { class: "nav-text", "Open Loop Capture" }
-					}
-					div { class: "spacer" }
-					button { class: "nav-button",
-						span { class: "nav-icon", "⛭" }
-						span { class: "nav-text", "System Settings" }
-					}
-					button { class: "nav-button",
-						span { class: "nav-icon", ">_" }
-						span { class: "nav-text", "Logs" }
-					}
-				}
-			}
+			Sidebar {}
 			div { id: "main-content",
 				div { id: "top-bar" }
 				div { id: "content-area", OpenLoopCapture {} }
