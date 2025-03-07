@@ -34,9 +34,7 @@ pub fn OpenLoopCapture() -> Element {
 
     rsx! {
         div { id: "standard-view",
-            h1 { "Open Loop Capture" }
             div { class: "settings-grid",
-                // Camera Settings Card - Full Width
                 div { class: "settings-card",
                     h2 { "Camera Settings" }
                     div { class: "setting-item",
@@ -56,7 +54,6 @@ pub fn OpenLoopCapture() -> Element {
                         }
                     }
                 }
-                // Capture Configuration Card - 2 Columns
                 div { class: "settings-card",
                     h2 { "Capture Configuration" }
                     div { class: "settings-grid-2col",
