@@ -15,7 +15,7 @@ pub fn SystemSettings() -> Element {
     };
 
     rsx! {
-        div { id: "reader-view",
+        div { id: "standard-view",
             h2 { "System Settings" }
             div { class: "settings-grid",
                 div { class: "settings-card",

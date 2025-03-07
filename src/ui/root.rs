@@ -1,14 +1,21 @@
-use crate::ui::sidebar::Sidebar;
 use crate::ui::open_capture::OpenLoopCapture;
+use crate::ui::sidebar::Sidebar;
 use crate::ui::system_settings::SystemSettings;
 use dioxus::prelude::*;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 
+#[derive(PartialEq, Clone, Copy)]
+pub enum View {
+    OpenLoop,
+    Settings,
+    Logs,
+}
+
 #[component]
 pub fn App() -> Element {
-    let mut active_page = use_signal(|| "openloop".to_string());
+    let mut active_page = use_signal(|| View::OpenLoop);
 
     rsx! {
 		document::Link { rel: "icon", href: FAVICON }
@@ -22,18 +29,15 @@ pub fn App() -> Element {
 				div { id: "top-bar" }
 				div { id: "content-area",
 					{
-					    match active_page().as_str() {
-					        "openloop" => rsx! {
+					    match active_page() {
+					        View::OpenLoop => rsx! {
 						OpenLoopCapture {}
 					},
-					        "settings" => rsx! {
+					        View::Settings => rsx! {
 						SystemSettings {}
 					},
-					        "logs" => rsx! {
+					        View::Logs => rsx! {
 						div { "Logs - Coming Soon" }
-					},
-					        _ => rsx! {
-						OpenLoopCapture {}
 					},
 					    }
 					}
